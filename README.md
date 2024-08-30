@@ -4,7 +4,7 @@ Fast deployment of pgstac (via docker compose) and pypgstac (via pip) on CREODIA
 ## Customisation Script
 You can customise your instance after it has launched using the options available here. "Customisation Script" is analogous to "User Data" in other systems.
 
-```
+```console
 #!/bin/bash
 # Update the package list
 sudo apt-get update
