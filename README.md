@@ -7,29 +7,29 @@ You can customise your instance after it has launched using the options availabl
 ```console
 #!/bin/bash
 # Update the package list
-sudo apt-get update
+apt-get update
 
 # Install required packages with automatic yes
-yes | sudo apt-get install ca-certificates curl
+apt-get install -y ca-certificates curl
 
 # Create the directory for Docker keyrings
-sudo install -m 0755 -d /etc/apt/keyrings
+install -y -m 0755 -d /etc/apt/keyrings
 
 # Download the Docker GPG key
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 
 # Ensure the keyring file is readable
-sudo chmod a+r /etc/apt/keyrings/docker.asc
+chmod a+r /etc/apt/keyrings/docker.asc
 
 # Add Docker repository to APT sources
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-$(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+$(. /etc/os-release && echo "$VERSION_CODENAME") stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # Update the package list again
-sudo apt-get update
+apt-get -y update
 
 # Install Docker components with automatic yes
-yes | sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 # Install pypgstac
 python3 -m pip install pypgstac[psycopg]
@@ -48,7 +48,7 @@ export postgres_cpus=2
 
 
 # Run pgstac via installed docker:
-sudo docker run -d \
+docker run -d \
   --name stac-db \
   --restart unless-stopped \
   --memory="${postgres_ram}" \
