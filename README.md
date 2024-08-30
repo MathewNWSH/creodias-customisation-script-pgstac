@@ -42,6 +42,9 @@ export PGUSER=
 export PGPASSWORD=
 export PGDATABASE=
 
+export PGHOST=0.0.0.0
+export PGPORT=5432
+
 export postgres_ram="2g"
 export postgres_cpus=2
 
