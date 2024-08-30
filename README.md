@@ -62,6 +62,6 @@ sudo docker run -d \
   -v stac-db-data:/var/lib/postgresql/data \
   postgis/postgis:17beta3-master
 
-#Base migrations install PgSTAC into a database with no current PgSTAC installation
+# Base migrations install PgSTAC into a database with no current PgSTAC installation
 pypgstac migrate
 ```
