@@ -34,4 +34,31 @@ yes | sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-p
 # Install pypgstac
 python3 -m pip install pypgstac[psycopg]
 export PATH=\$PATH:/home/eouser/.local/bin
+
+# Export initial env variables:
+export POSTGRES_USER=
+export POSTGRES_PASSWORD=
+export POSTGRES_DB=
+export PGUSER=
+export PGPASSWORD=
+export PGDATABASE=
+
+export postgres_ram="200g"
+export postgres_cpus=60
+
+# Run pgstac via installed docker:
+sudo docker run -d \
+  --name stac-db \
+  --restart unless-stopped \
+  --memory="${postgres_ram}" \
+  --cpus="${postgres_cpus}" \
+  -e POSTGRES_USER=${POSTGRES_USER} \
+  -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} \
+  -e POSTGRES_DB=${POSTGRES_DB} \
+  -e PGUSER=${PGUSER} \
+  -e PGPASSWORD=${PGPASSWORD} \
+  -e PGDATABASE=${PGDATABASE} \
+  -p 5432:5432 \
+  -v stac-db-data:/var/lib/postgresql/data \
+  postgis/postgis:17beta3-master
 ```
