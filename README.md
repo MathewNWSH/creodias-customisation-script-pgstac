@@ -1,5 +1,5 @@
 # creodias-customisation-script-pgstac
-Fast deployment of pgstac (via docker compose) and pypgstac (via pip) on CREODIAS infrastructure
+Fast deployment of pgstac (via docker) and pypgstac (via pip) on CREODIAS infrastructure
 
 ## Customisation Script
 You can customise your instance after it has launched using the options available here. "Customisation Script" is analogous to "User Data" in other systems.
@@ -43,8 +43,9 @@ export PGUSER=
 export PGPASSWORD=
 export PGDATABASE=
 
-export postgres_ram="200g"
-export postgres_cpus=60
+export postgres_ram="2g"
+export postgres_cpus=2
+
 
 # Run pgstac via installed docker:
 sudo docker run -d \
