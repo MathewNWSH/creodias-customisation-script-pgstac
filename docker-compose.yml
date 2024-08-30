@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  stac-db:
+    image: postgis/postgis:17beta3-master
+    container_name: stac-db
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: ${postgres_ram}
+          cpus: ${postgres_cpus}
+    environment:
+      PGHOST: localhost
+      PGPORT: 5432
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      PGUSER: ${PGUSER}
+      PGPASSWORD: ${PGPASSWORD}
+      PGDATABASE: ${PGDATABASE}
+    ports:
+      - "5432:5432"
+    volumes:
+      - stac-db-data:/var/lib/postgresql/data
+    command: ["pypgstac migrate"]
+
+volumes:
+  stac-db-data:
