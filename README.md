@@ -33,7 +33,6 @@ apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin do
 
 # Install pypgstac
 python3 -m pip install pypgstac[psycopg]
-export PATH=\$PATH:/home/eouser/.local/bin
 
 # Export initial env variables:
 export POSTGRES_USER=
