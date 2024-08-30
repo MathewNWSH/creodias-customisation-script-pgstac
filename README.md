@@ -68,3 +68,7 @@ docker run -d \
 # Base migrations install PgSTAC into a database with no current PgSTAC installation
 pypgstac migrate
 ```
+# How to use?
+Compile the lunch instance tab as instructed and paste the above code into:
+![Logo](graph_.png)
+and run VM.
