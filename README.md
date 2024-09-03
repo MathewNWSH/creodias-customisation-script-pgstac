@@ -64,6 +64,9 @@ echo "export PGDATABASE=\$PGDATABASE" >> ~/.bashrc
 echo "export PGHOST=\$PGHOST" >> ~/.bashrc
 echo "export PGPORT=\$PGPORT" >> ~/.bashrc
 
+# Reload bashrc to apply new environment variables
+source ~/.bashrc
+
 # Run pgstac via installed docker:
 docker run -d \
   --name stac-db \
@@ -79,7 +82,6 @@ docker run -d \
   -p 5432:5432 \
   -v stac-db-data:/var/lib/postgresql/data \
   ${POSTGRES_IMAGE}
-
 
 # Base migrations install PgSTAC into a database with no current PgSTAC installation
 pypgstac migrate
