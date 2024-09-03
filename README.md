@@ -9,6 +9,9 @@ You can customise your instance after it has launched using the options availabl
 # Update the package list
 apt-get update
 
+# Install nano
+apt install -y nano
+
 # Install required packages with automatic yes
 apt-get install -y ca-certificates curl
 
