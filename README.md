@@ -85,3 +85,9 @@ pypgstac migrate
 Compile the lunch instance tab as instructed and paste the above code into:
 ![Logo](graph_.png)
 and run VM.
+
+Then connect with VM via SSH or RDP (I recommend X2go) and from temrinal do:
+```console
+pypgstac load collections https://s3.fra1-2.cloudferro.com/swift/v1/stac-demo/collection-sentinel-2-l1c.json
+pypgstac load items https://s3.fra1-2.cloudferro.com/swift/v1/stac-demo/S2B_MSIL1C_20240401T003159_N0510_R002_T11XMK_20240401T003828.json
+```
