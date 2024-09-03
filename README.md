@@ -55,14 +55,14 @@ export postgres_cpus=2
 export POSTGRES_IMAGE="postgis/postgis:17beta3-master"
 
 # let's make sure that we only need to export those only once
-echo "export POSTGRES_USER=\$POSTGRES_USER" >> ~/.bashrc
-echo "export POSTGRES_PASSWORD=\$POSTGRES_PASSWORD" >> ~/.bashrc
-echo "export POSTGRES_DB=\$POSTGRES_DB" >> ~/.bashrc
-echo "export PGUSER=\$PGUSER" >> ~/.bashrc
-echo "export PGPASSWORD=\$PGPASSWORD" >> ~/.bashrc
-echo "export PGDATABASE=\$PGDATABASE" >> ~/.bashrc
-echo "export PGHOST=\$PGHOST" >> ~/.bashrc
-echo "export PGPORT=\$PGPORT" >> ~/.bashrc
+echo "export POSTGRES_USER=${POSTGRES_USER}" >> ~/.bashrc
+echo "export POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> ~/.bashrc
+echo "export POSTGRES_DB=${POSTGRES_DB}" >> ~/.bashrc
+echo "export PGUSER=${PGUSER}" >> ~/.bashrc
+echo "export PGPASSWORD=${PGPASSWORD}" >> ~/.bashrc
+echo "export PGDATABASE=${PGDATABASE}" >> ~/.bashrc
+echo "export PGHOST=${PGHOST}" >> ~/.bashrc
+echo "export PGPORT=${PGPORT}" >> ~/.bashrc
 
 # Reload bashrc to apply new environment variables
 source ~/.bashrc
