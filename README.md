@@ -1,10 +1,3 @@
-# creodias-customisation-script-pgstac
-Fast deployment of pgstac (via docker) and pypgstac (via pip) on CREODIAS infrastructure
-
-## Customisation Script
-You can customise your instance after it has launched using the options available here. "Customisation Script" is analogous to "User Data" in other systems.
-
-```console
 #!/bin/bash
 # Update the package list
 apt-get update
@@ -55,17 +48,14 @@ export postgres_cpus=2
 export POSTGRES_IMAGE="postgis/postgis:17beta3-master"
 
 # let's make sure that we only need to export those only once
-echo "export POSTGRES_USER=${POSTGRES_USER}" >> ~/.bashrc
-echo "export POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> ~/.bashrc
-echo "export POSTGRES_DB=${POSTGRES_DB}" >> ~/.bashrc
-echo "export PGUSER=${PGUSER}" >> ~/.bashrc
-echo "export PGPASSWORD=${PGPASSWORD}" >> ~/.bashrc
-echo "export PGDATABASE=${PGDATABASE}" >> ~/.bashrc
-echo "export PGHOST=${PGHOST}" >> ~/.bashrc
-echo "export PGPORT=${PGPORT}" >> ~/.bashrc
-
-# Reload bashrc to apply new environment variables
-source ~/.bashrc
+echo "export POSTGRES_USER=${POSTGRES_USER}" >> /home/eouser/.bashrc
+echo "export POSTGRES_PASSWORD=${POSTGRES_PASSWORD}" >> /home/eouser/.bashrc
+echo "export POSTGRES_DB=${POSTGRES_DB}" >> /home/eouser/.bashrc
+echo "export PGUSER=${PGUSER}" >> /home/eouser/.bashrc
+echo "export PGPASSWORD=${PGPASSWORD}" >> /home/eouser/.bashrc
+echo "export PGDATABASE=${PGDATABASE}" >> /home/eouser/.bashrc
+echo "export PGHOST=${PGHOST}" >> /home/eouser/.bashrc
+echo "export PGPORT=${PGPORT}" >> /home/eouser/.bashrc
 
 # Run pgstac via installed docker:
 docker run -d \
@@ -85,42 +75,3 @@ docker run -d \
 
 # Base migrations install PgSTAC into a database with no current PgSTAC installation
 pypgstac migrate
-```
-## How to use?
-Compile the lunch instance tab as instructed and paste the above code into:
-![Logo](graph_.png)
-and run VM.
-Then connect with VM via SSH or RDP (I recommend X2go) and from temrinal do:
-```console
-pypgstac load collections https://s3.fra1-2.cloudferro.com/swift/v1/stac-demo/collection-sentinel-2-l1c.json
-pypgstac load items https://s3.fra1-2.cloudferro.com/swift/v1/stac-demo/S2B_MSIL1C_20240401T003159_N0510_R002_T11XMK_20240401T003828.json
-```
-## While using beta versions of postgres:
-Yo need to edit ```/usr/local/lib/python3.10/dist-packages/pypgstac/db.py```:
-```python
-    @property
-    def pg_version(self) -> str:
-        """Get the current pg version number from a pgstac database."""
-        version = self.query_one(
-            """
-            SHOW server_version;
-            """,
-        )
-        logger.debug(f"PG VERSION: {version}.")
-        if isinstance(version, bytes):
-            version = version.decode()
-        if isinstance(version, str):
-            try:
-                if int(version.split(".")[0]) < 13:
-                    raise Exception("PgSTAC requires PostgreSQL 13+")
-                return version
-            except ValueError:
-                print("Warning: Developer version of PostgreSQL deteced")
-                pass
-        else:
-            if self.connection is not None:
-                self.connection.rollback()
-            raise Exception("Could not find PG version.")
-```
-
-Related ticket -> https://github.com/stac-utils/pgstac/issues/300
