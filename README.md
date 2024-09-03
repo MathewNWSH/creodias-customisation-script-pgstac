@@ -35,6 +35,7 @@ apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin do
 python3 -m pip install pypgstac[psycopg]
 
 # Export initial env variables:
+# for pypgstsac
 export POSTGRES_USER=
 export POSTGRES_PASSWORD=
 export POSTGRES_DB=
@@ -45,11 +46,20 @@ export PGDATABASE=
 export PGHOST=0.0.0.0
 export PGPORT=5432
 
+# for docker
 export postgres_ram="2g"
 export postgres_cpus=2
-
 export POSTGRES_IMAGE="postgis/postgis:17beta3-master"
 
+# let's make sure that we only need to export those only once
+echo "export POSTGRES_USER=\$POSTGRES_USER" >> ~/.bashrc
+echo "export POSTGRES_PASSWORD=\$POSTGRES_PASSWORD" >> ~/.bashrc
+echo "export POSTGRES_DB=\$POSTGRES_DB" >> ~/.bashrc
+echo "export PGUSER=\$PGUSER" >> ~/.bashrc
+echo "export PGPASSWORD=\$PGPASSWORD" >> ~/.bashrc
+echo "export PGDATABASE=\$PGDATABASE" >> ~/.bashrc
+echo "export PGHOST=\$PGHOST" >> ~/.bashrc
+echo "export PGPORT=\$PGPORT" >> ~/.bashrc
 
 # Run pgstac via installed docker:
 docker run -d \
@@ -66,6 +76,7 @@ docker run -d \
   -p 5432:5432 \
   -v stac-db-data:/var/lib/postgresql/data \
   ${POSTGRES_IMAGE}
+
 
 # Base migrations install PgSTAC into a database with no current PgSTAC installation
 pypgstac migrate
