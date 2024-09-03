@@ -48,6 +48,8 @@ export PGPORT=5432
 export postgres_ram="2g"
 export postgres_cpus=2
 
+export POSTGRES_IMAGE="postgis/postgis:17beta3-master"
+
 
 # Run pgstac via installed docker:
 docker run -d \
@@ -63,7 +65,7 @@ docker run -d \
   -e PGDATABASE=${PGDATABASE} \
   -p 5432:5432 \
   -v stac-db-data:/var/lib/postgresql/data \
-  postgis/postgis:17beta3-master
+  ${POSTGRES_IMAGE}
 
 # Base migrations install PgSTAC into a database with no current PgSTAC installation
 pypgstac migrate
