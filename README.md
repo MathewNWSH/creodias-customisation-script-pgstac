@@ -50,9 +50,9 @@ export PGHOST=0.0.0.0
 export PGPORT=5432
 
 # for docker
-export postgres_ram="2g"
-export postgres_cpus=2
-export POSTGRES_IMAGE="postgis/postgis:17beta3-master"
+export postgres_ram="200g"
+export postgres_cpus=62
+export POSTGRES_IMAGE="postgis/postgis:16-master"
 
 # let's make sure that we only need to export those only once
 echo "export POSTGRES_USER=${POSTGRES_USER}" >> /home/eouser/.bashrc
